@@ -8,7 +8,7 @@ using LeetCode;
 
 namespace LeetCode {
     internal class Tests {
-        Solution solution;
+        private static Solution solution;
 
         public Tests() {
             solution = new Solution();
@@ -19,6 +19,21 @@ namespace LeetCode {
 
             for (int i = 0; i < 100; i++) {
                 solution.IsPowerOfX(i, power);   
+            }
+        }
+
+        public void TestMaximumInteger() {
+            int[] data = {
+                9669,
+                6999,
+                9996,
+                9696,
+                6699,
+                6996
+            };
+
+            foreach (int i in data) {
+                solution.MaximumPositiveInteger(i);
             }
         }
     }
