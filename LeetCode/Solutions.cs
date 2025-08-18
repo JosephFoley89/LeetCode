@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace LeetCode {
     internal class Solution {
@@ -69,6 +70,76 @@ namespace LeetCode {
             }
 
             return result;
+        }
+
+        //08-18-2025
+        //https://leetcode.com/problems/24-game/description/?envType=daily-question&envId=2025-08-18
+        //Write a function that given four numbers (between 1 and 9) that can be added, subtracted, multiplied
+        //divided to reach 24 in some combination. Return a boolean indicating whether or not it's
+        //possible given the four numbers. This is a particularly annoying and tedious problem that I couldn't solve.
+        //Credit to user daulat_309 for helping me keep the streak alive.
+        //https://leetcode.com/problems/24-game/solutions/7093770/24-game-o-1-java-c-c-c-python3-javascript-go
+
+        public bool CanBeMathedTo24(int[] numbers) {
+            List<double> nums = new List<double>();
+
+            foreach (int n in numbers) {
+                nums.Add((double)n);
+            }
+
+            return DepthFirst(nums);
+        }
+
+        public bool DepthFirst(List<double> nums) {
+            const double EPSILON = 1e-6;
+
+            if (nums.Count == 1) {
+                return Math.Abs(nums[0] - 24) < EPSILON;
+            }
+
+            for (int i = 0; i < nums.Count; i++) {
+                for (int j = 0; j < nums.Count; j++) {
+                    if (i == j) {
+                        continue;
+                    }
+
+                    List<double> next = new List<double>();
+
+                    for (int k = 0; k < nums.Count; k++) {
+                        if (k != i && k != j) {
+                            next.Add(nums[k]);
+                        }
+                    }
+
+                    foreach (double val in Computations(nums[i], nums[j], EPSILON)) {
+                        next.Add(val);
+
+                        if (DepthFirst(next)) {
+                            return true;
+                        }
+
+                        next.RemoveAt(next.Count - 1);
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public List<double> Computations(double x, double y, double EPSILON) {
+            List<double> computations = new List<double>();
+            computations.Add(x + y);
+            computations.Add(x - y);
+            computations.Add(y - x);
+            computations.Add(x * y);
+            
+            if (Math.Abs(x) > EPSILON)
+                computations.Add(x / y);
+
+            if (Math.Abs(y) > EPSILON)
+                computations.Add(y / x);
+
+            return computations;
         }
     }
 }

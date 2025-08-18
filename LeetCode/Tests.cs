@@ -50,5 +50,27 @@ namespace LeetCode {
                 );
             }
         }
+
+        public void TestCanBeMathedTo24() {
+            List<int[]> testData = new List<int[]>();
+            Random random = new Random();
+
+            for (int i = 0; i < 25; i++) {
+                int[] data = new int[] {
+                    random.Next(1,9), 
+                    random.Next(1,9), 
+                    random.Next(1,9),
+                    random.Next(1,9)
+                };
+                testData.Add(data);
+            }
+
+            foreach (int[] data in testData) {
+                Console.WriteLine(
+                    "Is there a combination of mathematical operators that can reach 24 given "
+                    + $"{String.Join(",", data)}?\t{solution.CanBeMathedTo24(data)}"
+                );
+            }
+        }
     }
 }
