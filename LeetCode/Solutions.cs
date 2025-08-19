@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace LeetCode {
@@ -141,5 +142,27 @@ namespace LeetCode {
 
             return computations;
         }
+
+        //08-19-2025
+        //https://leetcode.com/problems/number-of-zero-filled-subarrays/?envType=daily-question&envId=2025-08-19
+        //Write a function that returns the total number of subarrays completely populated with zeroes. A subarray
+        //is a slice of an array that is 1..array.length-1 in length. My implementation will be a bit more generic
+        //than is required on LeetCode.
+
+        public long TotalNumberOfXSubarrays(int[] numbers, int x) {
+            long total = 0, sequence = 0;
+
+            foreach (int n in numbers) {
+                if (n == x) {
+                    sequence++;
+                    total += sequence;
+                } else {
+                    sequence = 0;
+                }
+            }
+
+            return total;
+        }
+
     }
 }

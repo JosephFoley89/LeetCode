@@ -9,9 +9,11 @@ using LeetCode;
 namespace LeetCode {
     internal class Tests {
         private readonly Solution solution;
+        private TestData testData;
 
         public Tests() {
             solution = new Solution();
+            testData = new TestData();
         }
 
         public void TestPowerOfX() {
@@ -52,25 +54,20 @@ namespace LeetCode {
         }
 
         public void TestCanBeMathedTo24() {
-            List<int[]> testData = new List<int[]>();
-            Random random = new Random();
-
-            for (int i = 0; i < 25; i++) {
-                int[] data = new int[] {
-                    random.Next(1,9), 
-                    random.Next(1,9), 
-                    random.Next(1,9),
-                    random.Next(1,9)
-                };
-                testData.Add(data);
-            }
-
-            foreach (int[] data in testData) {
+            foreach (int[] d in testData.GenerateIntegerArrayList(10, 25, 1, 9)) {
                 Console.WriteLine(
                     "Is there a combination of mathematical operators that can reach 24 given "
-                    + $"{String.Join(",", data)}?\t{solution.CanBeMathedTo24(data)}"
+                    + $"{String.Join(",", d)}?\t{solution.CanBeMathedTo24(d)}"
                 );
             }
         }
+
+        public void TestTotalNumberOfXSubarrays(int x) {
+            List<int[]> data = testData.GenerateIntegerArrayList(10, 25, 0, 9);
+
+            foreach (int[] d in data) {
+                Console.WriteLine($"Total number of {x} given {string.Join(",", d)}:\t{solution.TotalNumberOfXSubarrays(d, x)}.");
+            }
+        } 
     }
 }
