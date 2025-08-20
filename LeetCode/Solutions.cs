@@ -164,5 +164,31 @@ namespace LeetCode {
             return total;
         }
 
+        //08-20-2025
+        //https://leetcode.com/problems/count-square-submatrices-with-all-ones/?envType=daily-question&envId=2025-08-20
+        //Write a function that given a m * n square binary matrix returns the total number of square matrices that contain
+        //all ones. This is a 2D version of yesterday's problem. This too could be made more generic.
+
+        public int CountSquares(int[][] matrix, int n) {
+            int total = 0;
+
+            if (matrix == null || matrix.Length == 0 || matrix[0].Length == 0) {
+                return total;    
+            }
+
+            for (int x = 0; x < matrix.Length; x++) {
+                for (int y = 0;  y < matrix[x].Length; y++) {
+                    if (matrix[x][y] == n && x > 0 && y > 0) {
+                        matrix[x][y] = Math.Min(
+                            matrix[x - 1][y - 1],
+                            Math.Min(matrix[x - 1][y], matrix[x][y - 1])
+                        ) + 1;
+                    }
+                    total += matrix[x][y];
+                }
+            }
+
+            return total;
+        }
     }
 }

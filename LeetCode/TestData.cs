@@ -7,9 +7,14 @@ using System.Threading.Tasks;
 
 namespace LeetCode {
     internal class TestData {
+        private static Random random;
+
+        public TestData() {
+            random = new Random();
+        }
+
         public List<int[]> GenerateIntegerArrayList(int arrayLength, int numberOfArrays, int randomMin = 0, int randomMax = 1000) {
             List<int[]> testData = new List<int[]>();
-            Random random = new Random();
 
             for (int i = 0; i < numberOfArrays; i++) {
                 int[] data = new int[arrayLength];
@@ -22,6 +27,26 @@ namespace LeetCode {
             }
 
             return testData;
+        }
+
+        public List<int[][]> GenerateBinaryMatrix(int number, int x, int y, double oneChance = 0.33) {
+            List<int[][]> matrices = new List<int[][]>();
+            double chance = Math.Abs(oneChance - 1.0);
+
+            for (int n = 0; n < number; n++) {
+                int[][] matrix = new int[x][];
+
+                for (int i = 0; i < x - 1; i++) {
+                    matrix[i] = new int[y];
+                    for (int j = 0; j < y - 1; j++) {
+                        matrix[i][j] = random.NextDouble() > chance ? 1 : 0;
+                    }
+                }
+
+                matrices.Add(matrix);
+            }
+
+            return matrices;
         }
     }
 }

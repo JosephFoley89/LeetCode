@@ -16,6 +16,15 @@ namespace LeetCode {
             testData = new TestData();
         }
 
+        public void ExecutTests() {
+            TestPowerOfX();
+            TestMaximumInteger();
+            TestTwentyOneGame();
+            TestCanBeMathedTo24();
+            TestTotalNumberOfXSubarrays(0);
+            TestCountSquares(1);
+        }
+
         public void TestPowerOfX() {
             const int power = 3;
 
@@ -68,6 +77,22 @@ namespace LeetCode {
             foreach (int[] d in data) {
                 Console.WriteLine($"Total number of {x} given {string.Join(",", d)}:\t{solution.TotalNumberOfXSubarrays(d, x)}.");
             }
-        } 
+        }
+
+        public void TestCountSquares(int n) {
+            List<int[][]> matrices = testData.GenerateBinaryMatrix(5, 10, 10, .55);
+
+            foreach (int[][] matrix in matrices) {
+                for (int x = 0; x < matrix.Length - 1; x++) {
+                    for (int y = 0; y < matrix[x].Length - 1; y++) {
+                        Console.Write($" {matrix[x][y]} ");
+                    }
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine($"The total number of square {n}s in the above matrix is:{solution.CountSquares(matrix, n)}");
+            }
+
+        }
     }
 }
