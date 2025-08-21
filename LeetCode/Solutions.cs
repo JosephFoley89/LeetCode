@@ -1,6 +1,4 @@
-﻿using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System.Collections;
 
 namespace LeetCode {
     internal class Solution {
@@ -190,5 +188,44 @@ namespace LeetCode {
 
             return total;
         }
+
+        //08-21-2025
+        //https://leetcode.com/problems/count-submatrices-with-all-ones/description/?envType=daily-question&envId=2025-08-21
+        //This is more or less the same problem as yesterday with the caveat that
+        //the binary matrix does not have to be square, hence the jagged array setup.
+        //I'm not gonna bother with making this generic.
+
+        public int NumSubMat(int[][] mat) {
+            int r = mat.Length, c = mat[0].Length, count = 0;
+            int[] h = new int[c];
+
+            for (int i = 0; i < r; i++) {
+                for (int j = 0; j < c; j++) {
+                    h[j] = (mat[i][j] == 0) ? 0 : h[j] + 1;
+                }
+
+                int[] sum = new int[c];
+                Stack<int> stack = new Stack<int>();
+
+                for (int j = 0; j < c; j++) {
+                    while (stack.Count > 0 && h[stack.Peek()] >= h[j]) {
+                        stack.Pop();
+                    }
+
+                    if (stack.Count > 0) {
+                        int p = stack.Peek();
+                        sum[j] = sum[p] + h[j] * (j - p);
+                    } else {
+                        sum[j] = h[j] * (j + 1);
+                    }
+
+                    stack.Push(j);
+                    count += sum[j];
+                }
+            }
+
+            return count;
+        }
+
     }
 }

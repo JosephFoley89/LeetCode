@@ -36,9 +36,10 @@ namespace LeetCode {
             for (int n = 0; n < number; n++) {
                 int[][] matrix = new int[x][];
 
-                for (int i = 0; i < x - 1; i++) {
+                for (int i = 0; i < x; i++) {
                     matrix[i] = new int[y];
-                    for (int j = 0; j < y - 1; j++) {
+
+                    for (int j = 0; j < y; j++) {
                         matrix[i][j] = random.NextDouble() > chance ? 1 : 0;
                     }
                 }
