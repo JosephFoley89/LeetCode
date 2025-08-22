@@ -227,5 +227,33 @@ namespace LeetCode {
             return count;
         }
 
+        //08-22-2025
+        //https://leetcode.com/problems/find-the-minimum-area-to-cover-all-ones-i/description/?envType=daily-question&envId=2025-08-22
+        //Another Matrix math puzzle. This time you are to write a function that takes a jagged array
+        //of binary integers and are asked to find the smallest area rectangle of 1s inside the 2D 
+        //binary array.
+
+        public int MinimumArea(int[][] grid) {
+            int m = grid.Length, n = grid[0].Length;
+            int minRow = m, maxRow = -1;
+            int minCol = n, maxCol = -1;
+
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (grid[i][j] == 1) {
+                        minRow = Math.Min(minRow, i);
+                        maxRow = Math.Max(maxRow, i);
+                        minCol = Math.Min(minCol, j);
+                        maxCol = Math.Max(maxCol, j);
+                    }
+                }
+            }
+
+            Console.WriteLine(maxRow - minRow + 1);
+            Console.WriteLine(maxCol - minCol + 1);
+            Console.WriteLine((maxRow - minRow + 1) * (maxCol - minCol + 1));
+
+            return (maxRow - minRow + 1) * (maxCol - minCol + 1);
+        }
     }
 }

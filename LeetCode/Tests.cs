@@ -24,6 +24,7 @@ namespace LeetCode {
             TestTotalNumberOfXSubarrays(0);
             TestCountSquares(1);
             TestNumSubmatrices();
+            TestMinimumArea();
         }
 
         public void TestPowerOfX() {
@@ -108,6 +109,22 @@ namespace LeetCode {
 
                 Console.WriteLine($"The total number of rectangular 1s in the above matrix is:{solution.NumSubMat(matrix)}");
             }
+        }
+
+        public void TestMinimumArea() {
+            List<int[][]> matrices = testData.GenerateBinaryMatrix(5, 5, 5, .15);
+
+            foreach (int[][] matrix in matrices) {
+                for (int x = 0; x < matrix.Length - 1; x++) {
+                    for (int y = 0; y < matrix[x].Length - 1; y++) {
+                        Console.Write($" {matrix[x][y]} ");
+                    }
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine($"The minimum area to cover all ones for the given array is {solution.MinimumArea(matrix)}");
+            }
+
         }
     }
 }
