@@ -8,15 +8,15 @@ namespace LeetCode {
         //This function could be further generalized to determine if n is a power of x.
 
         public bool IsPowerOfFour(int n) {
-            return 
-                n != 0 && 
-                Math.Floor(Math.Log(n) / Math.Log(4)) == 
+            return
+                n != 0 &&
+                Math.Floor(Math.Log(n) / Math.Log(4)) ==
                 Math.Ceiling(Math.Log(n) / Math.Log(4));
         }
 
         public bool IsPowerOfX(int n, int x) {
-            return 
-                n != 0 && Math.Floor(Math.Log(n) / Math.Log(x)) == 
+            return
+                n != 0 && Math.Floor(Math.Log(n) / Math.Log(x)) ==
                 Math.Ceiling(Math.Log(n) / Math.Log(x));
         }
 
@@ -56,7 +56,7 @@ namespace LeetCode {
 
             for (int i = 1; i < n + 1; i++) {
                 dp[i] = windowSum / maxPts;
-                
+
                 if (i < k) {
                     windowSum += dp[i];
                 } else {
@@ -131,7 +131,7 @@ namespace LeetCode {
             computations.Add(x - y);
             computations.Add(y - x);
             computations.Add(x * y);
-            
+
             if (Math.Abs(x) > EPSILON)
                 computations.Add(x / y);
 
@@ -171,11 +171,11 @@ namespace LeetCode {
             int total = 0;
 
             if (matrix == null || matrix.Length == 0 || matrix[0].Length == 0) {
-                return total;    
+                return total;
             }
 
             for (int x = 0; x < matrix.Length; x++) {
-                for (int y = 0;  y < matrix[x].Length; y++) {
+                for (int y = 0; y < matrix[x].Length; y++) {
                     if (matrix[x][y] == n && x > 0 && y > 0) {
                         matrix[x][y] = Math.Min(
                             matrix[x - 1][y - 1],
@@ -254,6 +254,50 @@ namespace LeetCode {
             Console.WriteLine((maxRow - minRow + 1) * (maxCol - minCol + 1));
 
             return (maxRow - minRow + 1) * (maxCol - minCol + 1);
+        }
+
+        //08-23-2025 & 08-24-2025
+        //I didn't have time to work on these problems.
+
+        //08-24-2025
+        //https://leetcode.com/problems/diagonal-traverse/description/?envType=daily-question&envId=2025-08-25
+        //I'm beginning to remember why I stopped working on these problems daily. This is another matrix problem.
+        //Given a jagged array [m][n] return all diagonals. 
+
+        public int[] FindDiagonalOrder(int[][] matrix) {
+            if (matrix == null || matrix.Length == 0) {
+                return new int[0];
+            }
+
+            int m = matrix.Length, n = matrix[0].Length;
+            int row = 0, col = 0;
+            int[] diagonals = new int[m * n];
+
+            for (int i = 0; i < m * n; i++) {
+                diagonals[i] = matrix[row][col];
+                
+                if ((row + col) % 2 == 0) {
+                    if (col == n - 1) {
+                        row++;
+                    } else if (row == 0) {
+                        col++;
+                    } else {
+                        row--;
+                        col++;
+                    }
+                } else {
+                    if (row == m - 1) {
+                        col++;
+                    } else if (col == 0) {
+                        row++;
+                    } else {
+                        row++;
+                        col--;
+                    }
+                }
+            }
+
+            return diagonals;
         }
     }
 }

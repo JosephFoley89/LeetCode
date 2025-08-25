@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using LeetCode;
+﻿using System.Security.Cryptography.X509Certificates;
 
 namespace LeetCode {
     internal class Tests {
@@ -25,6 +19,7 @@ namespace LeetCode {
             TestCountSquares(1);
             TestNumSubmatrices();
             TestMinimumArea();
+            TestFindDiagonals();
         }
 
         public void TestPowerOfX() {
@@ -82,7 +77,7 @@ namespace LeetCode {
         }
 
         public void TestCountSquares(int n) {
-            List<int[][]> matrices = testData.GenerateBinaryMatrix(5, 10, 10, .55);
+            List<int[][]> matrices = testData.GenerateMatrix(5, 10, 10, true, .55);
 
             foreach (int[][] matrix in matrices) {
                 for (int x = 0; x < matrix.Length - 1; x++) {
@@ -97,7 +92,7 @@ namespace LeetCode {
         }
 
         public void TestNumSubmatrices() {
-            List<int[][]> matrices = testData.GenerateBinaryMatrix(5, 10, 12, .55);
+            List<int[][]> matrices = testData.GenerateMatrix(5, 10, 12, true, .55);
 
             foreach (int[][] matrix in matrices) {
                 for (int x = 0; x < matrix.Length - 1; x++) {
@@ -112,7 +107,7 @@ namespace LeetCode {
         }
 
         public void TestMinimumArea() {
-            List<int[][]> matrices = testData.GenerateBinaryMatrix(5, 5, 5, .15);
+            List<int[][]> matrices = testData.GenerateMatrix(5, 5, 5, true, .15);
 
             foreach (int[][] matrix in matrices) {
                 for (int x = 0; x < matrix.Length - 1; x++) {
@@ -123,6 +118,21 @@ namespace LeetCode {
                 }
 
                 Console.WriteLine($"The minimum area to cover all ones for the given array is {solution.MinimumArea(matrix)}");
+            }
+        }
+
+        public void TestFindDiagonals() {
+            List<int[][]> matrices = testData.GenerateMatrix(10, 10, 10);
+
+            foreach (int[][] matrix in matrices) {
+                for (int x = 0; x < matrix.Length - 1; x++) {
+                    for (int y = 0; y < matrix[x].Length - 1; y++) {
+                        Console.Write($" {matrix[x][y].ToString("000")} ");
+                    }
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine($"The diagonals in the above array are {String.Join(",", solution.FindDiagonalOrder(matrix))}");
             }
 
         }

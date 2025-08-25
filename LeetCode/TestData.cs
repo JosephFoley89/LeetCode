@@ -29,7 +29,7 @@ namespace LeetCode {
             return testData;
         }
 
-        public List<int[][]> GenerateBinaryMatrix(int number, int x, int y, double oneChance = 0.33) {
+        public List<int[][]> GenerateMatrix(int number, int x, int y, bool isBinary = false, double oneChance = 0.33) {
             List<int[][]> matrices = new List<int[][]>();
             double chance = Math.Abs(oneChance - 1.0);
 
@@ -40,7 +40,11 @@ namespace LeetCode {
                     matrix[i] = new int[y];
 
                     for (int j = 0; j < y; j++) {
-                        matrix[i][j] = random.NextDouble() > chance ? 1 : 0;
+                        if (isBinary) {
+                            matrix[i][j] = random.NextDouble() > chance ? 1 : 0;
+                        } else {
+                            matrix[i][j] = random.Next(0,100);
+                        }
                     }
                 }
 
